@@ -18,7 +18,7 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include' => [
-                    base_path('storage/logs/backup_log.log'),
+                    base_path('storage/app/logs/backup_log.log'),
                 ],
 
                 /*

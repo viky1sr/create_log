@@ -120,7 +120,7 @@ return [
 
         'backup_log' => [
             'driver' => 'single',
-            'path' => storage_path('logs/backup_log.log')
+            'path' => storage_path('app/logs/backup_log.log')
         ],
     ],
 

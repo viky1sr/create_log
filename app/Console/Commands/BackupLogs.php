@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 
 class BackupLogs extends Command
 {
@@ -29,6 +30,7 @@ class BackupLogs extends Command
     public function handle()
     {
         \Artisan::call('backup:run --only-files');
-        $this->info('Success backup logs '.Carbon::now()->format('Y-m-d'));
+        Storage::disk('local')->delete('logs/backup_log.log');
+        $this->info('Success backup logs '.Carbon::now());
     }
 }
