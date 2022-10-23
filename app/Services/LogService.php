@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repository\LogInterface;
 use App\Repository\LogRepository;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redis;
 
 class LogService implements LogInterface
 {
@@ -23,7 +24,7 @@ class LogService implements LogInterface
     {
         $getYMd = getDateYMd($this->date::parse($params['date']));
         $isDate = $this->date::parse($params['date'])->format('Y-m-d');
-        $isPath = $url.'/'.$getYMd['year'].'/'.$getYMd['month'].'/'.$getYMd['day'].'/'.$isDate.'.log';
+        $isPath = $url.'/'.$getYMd['year'].'/'.$getYMd['month'].'/'.$getYMd['day'].'/'.$params['nomor_rekening'].'/'.$isDate.'.log';
         $data =  $this->logRepo->get($isPath,$params);
         $decode = json_decode($data);
         return collect($decode)->map(function($item) use($params){
@@ -49,7 +50,7 @@ class LogService implements LogInterface
         $data = array_merge($data,['date_time' => $this->date::now()]);
         $dateNow = $this->date::now()->format('Y-m-d');
         $getYMd = getDateYMd($dateNow);
-        $isPath = $url.'/'.$getYMd['year'].'/'.$getYMd['month'].'/'.$getYMd['day'].'/'.$dateNow.'.log';
+        $isPath = $url.'/'.$getYMd['year'].'/'.$getYMd['month'].'/'.$getYMd['day'].'/'.$data['data']['nomor_rekening'].'/'.$dateNow.'.log';
         $checkData = json_decode($this->logRepo->get($isPath));
         if($checkData != null){
             array_push($data,['data_old' => $checkData]);

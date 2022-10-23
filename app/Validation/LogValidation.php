@@ -43,6 +43,7 @@ class LogValidation {
     public function get(array $req){
         $validation = Validator::make($req,[
             'date' => 'required',
+            'nomor_rekening' => 'required',
         ]);
         if($validation->fails()){
             return response()->json([
@@ -50,6 +51,7 @@ class LogValidation {
                 'message' => $validation->errors()->first()
             ],422);
         }
+
         return false;
     }
 }
