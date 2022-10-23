@@ -46,6 +46,7 @@ class LogService implements LogInterface
 
     public function store(string $url, array $data)
     {
+        $data = array_merge($data,['date_time' => $this->date::now()]);
         $dateNow = $this->date::now()->format('Y-m-d');
         $getYMd = getDateYMd($dateNow);
         $isPath = $url.'/'.$getYMd['year'].'/'.$getYMd['month'].'/'.$getYMd['day'].'/'.$dateNow.'.log';
